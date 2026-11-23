@@ -110,13 +110,13 @@ stand-in for real product photography — see **Known limitation** below.
 - Color impression: deep green + warm cream/neutral + terracotta accent —
   this is the palette encoded in `tokens.css`.
 
-**Known limitation:** the real logo artwork and product photography are
-Instagram-hosted brand assets that could not be downloaded/relicensed by an
-automated tool run. `Header`'s logo mark and every `ProductCard`/
-`ProductModal` image are an **honest placeholder** (an inline SVG leaf mark,
-and brand-color gradient tiles) built in the same visual language, clearly
-not claiming to be the real photos. Before launch, Bonsai should supply the
-original logo file and real product photos to `public/assets/brand/` and
-`public/assets/products/` — the components already expect an `image` field
-on `Product` (see `src/types.ts`) and only need that field wired in once
-real files exist.
+**Update:** the real logo was pulled directly from the Instagram profile
+picture (`public/assets/brand/logo.jpg`) and is now used in the header,
+hero, footer, splash screen and apple-touch-icon everywhere in the app.
+
+**Remaining limitation:** per-product photography is still an honest
+placeholder (brand-color gradient tiles), since individual product photos
+weren't available to download/relicense. Before launch, Bonsai should
+supply real product photos to `public/assets/products/` — `ProductCard`/
+`ProductModal` already expect an `image` field on `Product` (see
+`src/types.ts`) and only need that field wired in once real files exist.

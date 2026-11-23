@@ -4,9 +4,12 @@ import styles from "./AboutSection.module.css";
 interface Props {
   lang: Lang;
   brand: BrandSettings;
+  productCount: number;
+  categoryCount: number;
+  signatureCount: number;
 }
 
-export function AboutSection({ lang, brand }: Props) {
+export function AboutSection({ lang, brand, productCount, categoryCount, signatureCount }: Props) {
   const t = (ar: string, en: string) => (lang === "ar" ? ar : en);
   const mapsQuery = encodeURIComponent(brand.address.ar);
 
@@ -19,6 +22,21 @@ export function AboutSection({ lang, brand }: Props) {
           "Bonsai Café is Najaf's specialty coffee destination, where every detail matters — from bean selection to the way each cup is served."
         )}
       </p>
+
+      <div className={styles.stats}>
+        <div className={styles.stat}>
+          <span className={styles.statNumber}>{productCount}</span>
+          <span className={styles.statLabel}>{t("منتج", "products")}</span>
+        </div>
+        <div className={styles.stat}>
+          <span className={styles.statNumber}>{categoryCount}</span>
+          <span className={styles.statLabel}>{t("قسم", "categories")}</span>
+        </div>
+        <div className={styles.stat}>
+          <span className={styles.statNumber}>{signatureCount}</span>
+          <span className={styles.statLabel}>{t("توقيع بونساي", "signature items")}</span>
+        </div>
+      </div>
 
       <div className={styles.grid}>
         <a className={styles.card} href={`https://maps.google.com/?q=${mapsQuery}`} target="_blank" rel="noopener noreferrer">

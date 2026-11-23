@@ -8,28 +8,46 @@ interface Props {
   onToggleTheme: () => void;
   cartCount: number;
   onOpenCart: () => void;
+  onOpenGift: () => void;
+  onOpenMembership: () => void;
   brandName: string;
 }
 
-export function Header({ lang, onToggleLang, theme, onToggleTheme, cartCount, onOpenCart, brandName }: Props) {
+export function Header({
+  lang,
+  onToggleLang,
+  theme,
+  onToggleTheme,
+  cartCount,
+  onOpenCart,
+  onOpenGift,
+  onOpenMembership,
+  brandName,
+}: Props) {
   const t = (ar: string, en: string) => (lang === "ar" ? ar : en);
 
   return (
     <header className={styles.header}>
       <div className={`${styles.inner} container`}>
         <a href="#home" className={styles.brand} aria-label={brandName}>
-          <svg className={styles.mark} width="30" height="30" viewBox="0 0 32 32" aria-hidden="true">
-            <circle cx="16" cy="16" r="15" fill="var(--bonsai-cream-100)" stroke="var(--color-primary)" strokeWidth="1" />
-            <path d="M16 24V13" stroke="var(--color-primary)" strokeWidth="1.6" strokeLinecap="round" />
-            <path d="M16 13c-3-1-5-3.5-5-6.5 3 0 5.5 2 6.5 4.6" fill="var(--color-primary)" />
-            <path d="M16 15c3-1.2 5-3.4 5-6 -3 0-5.3 1.8-6 4.2" fill="var(--color-primary)" />
-            <circle cx="10.5" cy="9.5" r="1.1" fill="var(--color-accent)" />
-            <circle cx="21.5" cy="10.5" r="1.1" fill="var(--color-accent)" />
-          </svg>
+          <img className={styles.mark} src="/assets/brand/logo.jpg" alt="" width={30} height={30} />
           <span className={styles.wordmark}>BONSAI</span>
         </a>
 
         <nav className={styles.actions} aria-label={t("إجراءات سريعة", "Quick actions")}>
+          <button type="button" className={styles.iconBtn} onClick={onOpenGift} aria-label={t("إهداء هدية", "Send a gift")}>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M20 8v13H4V8M2 8h20v4H2zM12 8v13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M12 8H8.5a2 2 0 1 1 0-4C11 4 12 8 12 8ZM12 8h3.5a2 2 0 1 0 0-4C13 4 12 8 12 8Z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+
+          <button type="button" className={styles.iconBtn} onClick={onOpenMembership} aria-label={t("مكافآت ونادي بونساي", "Bonsai rewards & club")}>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="m12 3 2.8 5.8 6.2.9-4.5 4.5 1.1 6.3L12 17.6 6.4 20.5l1.1-6.3L3 9.7l6.2-.9Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+            </svg>
+          </button>
+
           <button
             type="button"
             className={styles.pillBtn}

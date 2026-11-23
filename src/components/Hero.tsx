@@ -22,6 +22,7 @@ export function Hero({ lang, brand }: Props) {
           </div>
         ) : null}
 
+        <img className={styles.logo} src="/assets/brand/logo.jpg" alt={brand.name[lang]} width={72} height={72} />
         <h1 className={styles.wordmark}>BONSAI</h1>
         <p className={styles.tagline}>{brand.tagline[lang]}</p>
 

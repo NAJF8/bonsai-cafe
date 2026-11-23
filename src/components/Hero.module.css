@@ -35,6 +35,14 @@
   color: var(--bonsai-terracotta-500);
 }
 
+.logo {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-lg);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
 .wordmark {
   font-family: var(--font-display);
   font-size: clamp(2.4rem, 10vw, 3.4rem);

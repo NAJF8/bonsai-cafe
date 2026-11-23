@@ -22,10 +22,37 @@ brand audit.
   **WhatsApp ordering flow** (no payment gateway — WhatsApp is the order
   confirmation channel, matching how the café already takes orders).
 - Star-rating review form (writes to Firestore when configured).
+- **Bonsai Club & Rewards** — phone-number membership (no password):
+  look up or join from the header. Points start at 0 and are credited by
+  staff after a confirmed order, never by the client itself — a client-side
+  write can't be trusted to represent a real purchase without a backend
+  function, which this project deliberately doesn't add.
+- **Digital gift** — send a product or an open amount to someone, with a
+  generated gift code; creates a `gifts` record and opens a formatted
+  WhatsApp message to the café to arrange it.
+- **Table / space reservation** — date, time, party size → `bookings`
+  record + a WhatsApp confirmation request, the same honest pattern as
+  ordering.
+- **Events** — reads an admin-managed `events` collection; shows a real
+  empty state (not a fabricated event) when none exist yet.
+- Splash screen with the café's real logo on first load.
 - Skeleton loading, empty states, graceful fallback when Firebase isn't
   configured yet.
 - Code-split Firebase SDK — the main bundle never pays for it unless a
   project is actually configured.
+
+### Why this isn't a 1:1 clone of 101coffees.com
+
+The UX pattern (header icon bar, rewards card, gift, club, events,
+reservation, about-stats) is intentionally modeled on 101 Coffee's site per
+request, but three things are deliberately different, not missed:
+
+- **Branding stays Bonsai's own** — real logo, colors and copy, never 101's.
+- **101 Club's "monthly subscription"** became a free rewards membership
+  here, since a real paid subscription needs billing infrastructure this
+  project doesn't have and wasn't asked to build.
+- **No AI chat assistant** — out of scope for a menu app; the WhatsApp CTA
+  already covers "talk to a human."
 
 ## Tech Stack
 
@@ -55,10 +82,12 @@ data in `src/data/` — no Firebase project is required to develop or demo it.
 
 1. Copy `.env.example` to `.env` and fill in the Web SDK config from
    **Firebase console → Project settings → General → Your apps**.
-2. Create three Firestore collections: `categories`, `products`, `settings`
-   (one document, any id, shaped like `src/types.ts#BrandSettings`), seeded
-   from `src/data/categories.ts` / `products.ts` / `brand.ts`. A `reviews`
-   collection is created automatically by the review form.
+2. Create the Firestore collections `categories`, `products`, `settings`
+   (one document, any id, shaped like `src/types.ts#BrandSettings`), and
+   optionally `events` — seed them from `src/data/*.ts`, or run
+   `npx tsx scripts/seed-firestore.ts` (uses `gcloud auth print-access-token`,
+   no service-account key needed). `reviews`, `members`, `gifts` and
+   `bookings` are created automatically as people use those features.
 3. Deploy the included security rules: `firebase deploy --only firestore:rules`.
 4. `npm run build && firebase deploy --only hosting`.
 
@@ -90,16 +119,14 @@ public/
 
 ## Known Limitations
 
-- **Logo & product photography are placeholders.** The real Instagram-hosted
-  logo and product photos could not be downloaded/relicensed automatically;
-  placeholders use the extracted brand palette honestly, not stock photos
-  pretending to be Bonsai's own. Swap in real files under `public/assets/`.
-- **Rewards/loyalty club, gift cards, table booking and a bilingual full
-  website are out of scope.** These were studied as UX references (101
-  Coffee) but deliberately not built for this single-location café menu —
-  building a full loyalty/CRM system wasn't asked for and would be
-  over-engineering for the stated goal of a fast, QR-first ordering menu.
-  The data model (Firestore) can support adding them later without a
-  rewrite.
-- **No payment gateway** — orders are confirmed over WhatsApp, matching how
-  the café currently operates (per its Instagram bio).
+- **Product photography is still placeholder** (the real Instagram-hosted
+  logo is in use — see `public/assets/brand/logo.jpg` — but per-product
+  photos weren't available to download/relicense). Add real photos to
+  `public/assets/products/` and wire `Product.image` once supplied.
+- **Rewards points are credited manually by staff**, not automatically —
+  see "Why this isn't a 1:1 clone" above for why.
+- **No payment gateway** — orders, gifts and reservations are all confirmed
+  over WhatsApp, matching how the café currently operates.
+- **No AI chat assistant and no Google-account login** for rewards — phone
+  number is the only identifier, which keeps the feature honest without
+  adding real authentication infrastructure.

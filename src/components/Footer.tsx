@@ -14,6 +14,7 @@ export function Footer({ lang, brand }: Props) {
   return (
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
+        <img className={styles.logo} src="/assets/brand/logo.jpg" alt="" width={48} height={48} />
         <span className={styles.wordmark}>BONSAI</span>
         <p className={styles.tagline}>{brand.tagline[lang]}</p>
         <nav className={styles.links} aria-label={t("روابط التذييل", "Footer links")}>

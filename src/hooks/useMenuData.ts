@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import type { Category, Product, BrandSettings } from "../types";
+import type { Category, Product, BrandSettings, CafeEvent } from "../types";
 import { categories as seedCategories } from "../data/categories";
 import { products as seedProducts } from "../data/products";
 import { brand as seedBrand } from "../data/brand";
+import { events as seedEvents } from "../data/events";
 import { fetchCollectionSafe, isFirebaseConfigured } from "../lib/firebase";
 
 interface MenuData {
   categories: Category[];
   products: Product[];
   brand: BrandSettings;
+  events: CafeEvent[];
   loading: boolean;
   source: "firebase" | "seed";
 }
@@ -18,6 +20,7 @@ export function useMenuData(): MenuData {
     categories: seedCategories,
     products: seedProducts,
     brand: seedBrand,
+    events: seedEvents,
     loading: isFirebaseConfigured,
     source: "seed",
   });
@@ -27,10 +30,11 @@ export function useMenuData(): MenuData {
     let cancelled = false;
 
     (async () => {
-      const [remoteCategories, remoteProducts, remoteSettings] = await Promise.all([
+      const [remoteCategories, remoteProducts, remoteSettings, remoteEvents] = await Promise.all([
         fetchCollectionSafe<Category>("categories"),
         fetchCollectionSafe<Product>("products"),
         fetchCollectionSafe<BrandSettings & { id: string }>("settings"),
+        fetchCollectionSafe<CafeEvent>("events"),
       ]);
 
       if (cancelled) return;
@@ -48,6 +52,7 @@ export function useMenuData(): MenuData {
         categories: sortedCategories ?? prev.categories,
         products: sortedProducts ?? prev.products,
         brand: remoteSettings && remoteSettings.length ? remoteSettings[0] : prev.brand,
+        events: remoteEvents ?? prev.events,
         loading: false,
         source: remoteCategories || remoteProducts ? "firebase" : "seed",
       }));

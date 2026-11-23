@@ -71,3 +71,49 @@ export interface Review {
   productId?: string;
   createdAt: number;
 }
+
+export interface Member {
+  phone: string;
+  name: string;
+  points: number;
+  createdAt?: unknown;
+}
+
+export interface CafeEvent {
+  id: string;
+  title: LocalizedText;
+  description: LocalizedText;
+  date: string; // YYYY-MM-DD
+  time: string; // e.g. "19:00 - 02:00"
+  price: LocalizedText; // e.g. "مجاني" / "Free"
+  sortOrder: number;
+}
+
+export interface GiftOrder {
+  id?: string;
+  code: string;
+  kind: "product" | "amount";
+  productId?: string;
+  productName?: string;
+  amount?: number;
+  senderName: string;
+  senderPhone: string;
+  recipientName: string;
+  recipientPhone?: string;
+  message?: string;
+  status: "pending" | "redeemed";
+  createdAt?: unknown;
+}
+
+export interface BookingRequest {
+  id?: string;
+  purpose: LocalizedText;
+  date: string;
+  time: string;
+  partySize: number;
+  name: string;
+  phone: string;
+  note?: string;
+  status: "pending" | "confirmed" | "cancelled";
+  createdAt?: unknown;
+}

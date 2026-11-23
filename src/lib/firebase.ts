@@ -58,27 +58,78 @@ export async function fetchCollectionSafe<T>(name: string): Promise<T[] | null> 
   }
 }
 
+type SafeResult = { ok: true; id?: string } | { ok: false; reason: "offline" | "error" };
+
+/** Adds a document to `collectionName`, stamping `createdAt` and stripping
+ *  any `undefined` field — Firestore rejects those outright, and callers
+ *  routinely leave optional inputs (name, phone, note) unset. */
+export async function addDocSafe(
+  collectionName: string,
+  data: Record<string, unknown>
+): Promise<SafeResult> {
+  const loaded = await loadFirestore();
+  if (!loaded) return { ok: false, reason: "offline" };
+  const { db, firestore } = loaded;
+  try {
+    const clean: Record<string, unknown> = { createdAt: firestore.serverTimestamp() };
+    for (const [key, value] of Object.entries(data)) {
+      if (value !== undefined) clean[key] = value;
+    }
+    const ref = await firestore.addDoc(firestore.collection(db, collectionName), clean);
+    return { ok: true, id: ref.id };
+  } catch (err) {
+    console.error(`[firebase] failed to write to "${collectionName}"`, err);
+    return { ok: false, reason: "error" };
+  }
+}
+
 export async function submitReviewSafe(review: {
   rating: number;
   comment: string;
   customerName?: string;
   phone?: string;
   productId?: string;
-}): Promise<{ ok: true } | { ok: false; reason: "offline" | "error" }> {
+}): Promise<SafeResult> {
+  return addDocSafe("reviews", review);
+}
+
+/** Looks up a member's rewards profile by phone number (the document id).
+ *  Returns `null` both when Firebase isn't configured and when no such
+ *  member exists yet — callers treat both the same way (show "not found"
+ *  / offer to join). */
+export async function getMemberByPhone(phone: string): Promise<{ name: string; points: number } | null> {
+  const loaded = await loadFirestore();
+  if (!loaded) return null;
+  const { db, firestore } = loaded;
+  try {
+    const snap = await firestore.getDoc(firestore.doc(db, "members", phone));
+    if (!snap.exists()) return null;
+    const data = snap.data() as { name?: string; points?: number };
+    return { name: data.name ?? "", points: data.points ?? 0 };
+  } catch (err) {
+    console.error("[firebase] failed to read member", err);
+    return null;
+  }
+}
+
+/** Creates a new member profile starting at 0 points. Points are credited
+ *  manually by staff after a confirmed order — see MembershipPanel for why
+ *  this isn't automatic (client-side point writes can't be trusted without
+ *  a backend function, which this project deliberately doesn't add). */
+export async function createMemberSafe(phone: string, name: string): Promise<SafeResult> {
   const loaded = await loadFirestore();
   if (!loaded) return { ok: false, reason: "offline" };
   const { db, firestore } = loaded;
   try {
-    // Firestore rejects a field whose value is `undefined` outright, so
-    // optional fields the caller left unset must be omitted, not nulled.
-    const data: Record<string, unknown> = { createdAt: firestore.serverTimestamp() };
-    for (const [key, value] of Object.entries(review)) {
-      if (value !== undefined) data[key] = value;
-    }
-    await firestore.addDoc(firestore.collection(db, "reviews"), data);
+    await firestore.setDoc(firestore.doc(db, "members", phone), {
+      name,
+      phone,
+      points: 0,
+      createdAt: firestore.serverTimestamp(),
+    });
     return { ok: true };
   } catch (err) {
-    console.error("[firebase] failed to submit review", err);
+    console.error("[firebase] failed to create member", err);
     return { ok: false, reason: "error" };
   }
 }
