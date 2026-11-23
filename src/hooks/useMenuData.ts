@@ -35,9 +35,18 @@ export function useMenuData(): MenuData {
 
       if (cancelled) return;
 
+      // Firestore collections don't preserve array order, so every list
+      // read from it must be explicitly re-sorted by its own sortOrder.
+      const sortedCategories = remoteCategories?.length
+        ? [...remoteCategories].sort((a, b) => a.sortOrder - b.sortOrder)
+        : null;
+      const sortedProducts = remoteProducts?.length
+        ? [...remoteProducts].sort((a, b) => a.sortOrder - b.sortOrder)
+        : null;
+
       setState((prev) => ({
-        categories: remoteCategories && remoteCategories.length ? remoteCategories : prev.categories,
-        products: remoteProducts && remoteProducts.length ? remoteProducts : prev.products,
+        categories: sortedCategories ?? prev.categories,
+        products: sortedProducts ?? prev.products,
         brand: remoteSettings && remoteSettings.length ? remoteSettings[0] : prev.brand,
         loading: false,
         source: remoteCategories || remoteProducts ? "firebase" : "seed",

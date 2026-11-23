@@ -1,3 +1,7 @@
+import type { Firestore } from "firebase/firestore";
+
+const FIREBASE_SDK_VERSION = "13.4.0";
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -11,32 +15,42 @@ export const isFirebaseConfigured = Boolean(
   firebaseConfig.apiKey && firebaseConfig.projectId
 );
 
-/** Lazily loads and initializes the Firebase SDK only when it's actually
- *  needed, and only once. Keeps the firebase package out of the main
- *  bundle entirely when a project isn't configured (QR-first = fast first
- *  paint matters more than an SDK most visits will never touch). */
-let dbPromise: Promise<import("firebase/firestore").Firestore> | null = null;
+/** Lazily loads the Firebase SDK straight from Google's own CDN, only when
+ *  actually needed (QR-first = most visits never touch it, so it must stay
+ *  out of the main bundle). This is deliberate, not a missed optimization:
+ *  bundling `firebase/app` + `firebase/firestore` through Vite/Rollup's
+ *  production build corrupted the SDK's internal component registration
+ *  (requests silently came back "Missing or insufficient permissions" for
+ *  every read, even with fully public rules — verified the same config
+ *  works from the official CDN build in the same browser). Loading the
+ *  identical version from the CDN sidesteps that bundler-specific bug. */
+let firestorePromise: Promise<{
+  db: Firestore;
+  firestore: typeof import("firebase/firestore");
+} | null> | null = null;
 
-function getDb() {
+function loadFirestore() {
   if (!isFirebaseConfigured) return Promise.resolve(null);
-  if (!dbPromise) {
-    dbPromise = Promise.all([
-      import("firebase/app"),
-      import("firebase/firestore"),
-    ]).then(([{ initializeApp }, { getFirestore }]) => {
+  if (!firestorePromise) {
+    const base = `https://www.gstatic.com/firebasejs/${FIREBASE_SDK_VERSION}`;
+    firestorePromise = Promise.all([
+      import(/* @vite-ignore */ `${base}/firebase-app.js`),
+      import(/* @vite-ignore */ `${base}/firebase-firestore.js`),
+    ]).then(([{ initializeApp }, firestore]) => {
       const app = initializeApp(firebaseConfig);
-      return getFirestore(app);
+      const db = firestore.getFirestore(app) as Firestore;
+      return { db, firestore };
     });
   }
-  return dbPromise;
+  return firestorePromise;
 }
 
 export async function fetchCollectionSafe<T>(name: string): Promise<T[] | null> {
-  const db = await getDb();
-  if (!db) return null;
+  const loaded = await loadFirestore();
+  if (!loaded) return null;
+  const { db, firestore } = loaded;
   try {
-    const { collection, getDocs } = await import("firebase/firestore");
-    const snap = await getDocs(collection(db, name));
+    const snap = await firestore.getDocs(firestore.collection(db, name));
     return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as T);
   } catch (err) {
     console.error(`[firebase] failed to read "${name}"`, err);
@@ -51,14 +65,17 @@ export async function submitReviewSafe(review: {
   phone?: string;
   productId?: string;
 }): Promise<{ ok: true } | { ok: false; reason: "offline" | "error" }> {
-  const db = await getDb();
-  if (!db) return { ok: false, reason: "offline" };
+  const loaded = await loadFirestore();
+  if (!loaded) return { ok: false, reason: "offline" };
+  const { db, firestore } = loaded;
   try {
-    const { collection, addDoc, serverTimestamp } = await import("firebase/firestore");
-    await addDoc(collection(db, "reviews"), {
-      ...review,
-      createdAt: serverTimestamp(),
-    });
+    // Firestore rejects a field whose value is `undefined` outright, so
+    // optional fields the caller left unset must be omitted, not nulled.
+    const data: Record<string, unknown> = { createdAt: firestore.serverTimestamp() };
+    for (const [key, value] of Object.entries(review)) {
+      if (value !== undefined) data[key] = value;
+    }
+    await firestore.addDoc(firestore.collection(db, "reviews"), data);
     return { ok: true };
   } catch (err) {
     console.error("[firebase] failed to submit review", err);
