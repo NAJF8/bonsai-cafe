@@ -1,0 +1,144 @@
+/* ==========================================================================
+   BONSAI CAFE — Design Tokens
+   Source: extracted from @bonsaicafe.iq (logo, photography, watermark type)
+   Palette: deep bonsai-leaf green + warm cream + terracotta berry accent
+   ========================================================================== */
+
+:root {
+  /* ---- Brand color ramp (extracted) ---- */
+  --bonsai-green-900: #15241b;
+  --bonsai-green-800: #1d3327;
+  --bonsai-green-700: #27452f; /* primary */
+  --bonsai-green-600: #335a3d;
+  --bonsai-green-500: #44724f;
+  --bonsai-green-100: #dde8df;
+
+  --bonsai-terracotta-700: #9a3f28;
+  --bonsai-terracotta-600: #b5522e; /* accent */
+  --bonsai-terracotta-500: #c76a44;
+  --bonsai-terracotta-100: #f3ddd0;
+
+  --bonsai-cream-050: #fdfbf6;
+  --bonsai-cream-100: #f7efe0; /* logo background */
+  --bonsai-cream-200: #efe3cc;
+  --bonsai-cream-300: #e3d2ac;
+
+  --bonsai-ink-900: #201b14;
+  --bonsai-ink-700: #41392d;
+  --bonsai-ink-500: #6b6257;
+  --bonsai-ink-300: #a99f8f;
+
+  --bonsai-success: #3f7a52;
+  --bonsai-warning: #c98a2c;
+  --bonsai-error: #b43a2e;
+
+  /* ---- Semantic tokens (light) ---- */
+  --color-primary: var(--bonsai-green-700);
+  --color-primary-strong: var(--bonsai-green-800);
+  --color-on-primary: var(--bonsai-cream-050);
+
+  --color-secondary: var(--bonsai-ink-700);
+  --color-on-secondary: var(--bonsai-cream-050);
+
+  --color-accent: var(--bonsai-terracotta-600);
+  --color-on-accent: var(--bonsai-cream-050);
+
+  --color-background: var(--bonsai-cream-100);
+  --color-surface: var(--bonsai-cream-050);
+  --color-surface-raised: #ffffff;
+
+  --color-text: var(--bonsai-ink-900);
+  --color-text-muted: var(--bonsai-ink-500);
+  --color-text-on-dark: var(--bonsai-cream-050);
+
+  --color-border: var(--bonsai-cream-300);
+  --color-border-strong: var(--bonsai-ink-300);
+
+  --color-success: var(--bonsai-success);
+  --color-warning: var(--bonsai-warning);
+  --color-error: var(--bonsai-error);
+
+  --color-ring: var(--bonsai-green-600);
+
+  /* ---- Typography ---- */
+  --font-arabic: "Cairo", "Noto Kufi Arabic", sans-serif;
+  --font-display: "Jost", "Cairo", sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.875rem;
+  --text-3xl: 2.25rem;
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+
+  /* ---- Spacing scale ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* ---- Radius ---- */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  /* ---- Shadow (warm-tinted, never pure black) ---- */
+  --shadow-sm: 0 1px 2px rgba(32, 27, 20, 0.08);
+  --shadow-md: 0 8px 24px -8px rgba(32, 27, 20, 0.18);
+  --shadow-lg: 0 16px 40px -12px rgba(32, 27, 20, 0.28);
+  --shadow-sheet: 0 -8px 32px rgba(32, 27, 20, 0.18);
+
+  /* ---- Motion ---- */
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+
+  /* ---- Layout ---- */
+  --header-height: 64px;
+  --bottom-nav-height: 64px;
+  --max-content-width: 640px;
+  --touch-target-min: 44px;
+}
+
+:root[data-theme="dark"] {
+  --color-background: var(--bonsai-green-900);
+  --color-surface: var(--bonsai-green-800);
+  --color-surface-raised: #223a2a;
+
+  --color-text: var(--bonsai-cream-100);
+  --color-text-muted: #b9c3bb;
+  --color-border: #32483a;
+  --color-border-strong: #44604e;
+
+  --color-on-primary: var(--bonsai-cream-050);
+  --color-ring: var(--bonsai-cream-200);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px -8px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px -12px rgba(0, 0, 0, 0.55);
+  --shadow-sheet: 0 -8px 32px rgba(0, 0, 0, 0.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

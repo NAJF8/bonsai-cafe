@@ -1,0 +1,38 @@
+@keyframes shimmer {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.barWide {
+  height: 20px;
+  width: 140px;
+  border-radius: var(--radius-sm);
+  background: var(--color-border);
+  margin-block: var(--space-4);
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.card { display: flex; flex-direction: column; gap: var(--space-2); }
+
+.image {
+  aspect-ratio: 1/1;
+  border-radius: var(--radius-md);
+  background: var(--color-border);
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+.lineShort, .lineTiny {
+  height: 10px;
+  border-radius: 4px;
+  background: var(--color-border);
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+.lineShort { width: 80%; }
+.lineTiny { width: 40%; }

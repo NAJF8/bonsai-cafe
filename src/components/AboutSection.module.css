@@ -1,0 +1,28 @@
+.section { padding-block: var(--space-10); }
+
+.title { font-size: var(--text-xl); font-weight: 700; margin-bottom: var(--space-3); }
+
+.text { color: var(--color-text-muted); line-height: var(--leading-relaxed); margin-bottom: var(--space-5); }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+@media (min-width: 560px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.cardLabel { font-size: var(--text-xs); color: var(--color-text-muted); font-weight: 600; }
+.cardValue { font-size: var(--text-sm); font-weight: 700; color: var(--color-text); }
