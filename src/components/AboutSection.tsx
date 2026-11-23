@@ -15,26 +15,39 @@ export function AboutSection({ lang, brand, productCount, categoryCount, signatu
 
   return (
     <section id="about" className={`container ${styles.section}`} aria-labelledby="about-h">
-      <h2 id="about-h" className={styles.title}>{t("عن بونساي", "About Bonsai")}</h2>
-      <p className={styles.text}>
-        {t(
-          "بونساي كافيه هو وجهة القهوة المختصة في النجف، حيث نولي كل تفصيلة اهتمامًا خاصًا — من اختيار الحبوب إلى تقديم كل كوب.",
-          "Bonsai Café is Najaf's specialty coffee destination, where every detail matters — from bean selection to the way each cup is served."
-        )}
-      </p>
+      <div className={styles.layout}>
+        <div className={styles.badge}>
+          <img className={styles.logo} src="/assets/brand/logo.jpg" alt="" width={120} height={120} />
+          <span className={styles.badgeName}>BONSAI</span>
+          <span className={styles.badgeTag}>{t("كافيه", "Café")}</span>
+        </div>
 
-      <div className={styles.stats}>
-        <div className={styles.stat}>
-          <span className={styles.statNumber}>{productCount}</span>
-          <span className={styles.statLabel}>{t("منتج", "products")}</span>
-        </div>
-        <div className={styles.stat}>
-          <span className={styles.statNumber}>{categoryCount}</span>
-          <span className={styles.statLabel}>{t("قسم", "categories")}</span>
-        </div>
-        <div className={styles.stat}>
-          <span className={styles.statNumber}>{signatureCount}</span>
-          <span className={styles.statLabel}>{t("توقيع بونساي", "signature items")}</span>
+        <div className={styles.copy}>
+          <h2 id="about-h" className={styles.title}>{t("عن بونساي", "About Bonsai")}</h2>
+          <p className={styles.text}>
+            {t(
+              "بونساي كافيه هو وجهة القهوة المختصة في النجف، حيث نولي كل تفصيلة اهتمامًا خاصًا — من اختيار الحبوب إلى تقديم كل كوب.",
+              "Bonsai Café is Najaf's specialty coffee destination, where every detail matters — from bean selection to the way each cup is served."
+            )}
+          </p>
+          <p className={styles.quote}>
+            {t("“قهوة مختصة تنبض بالتفاصيل”", "“Specialty coffee, alive in the details”")}
+          </p>
+
+          <div className={styles.stats}>
+            <div className={styles.stat}>
+              <span className={styles.statNumber}>{productCount}</span>
+              <span className={styles.statLabel}>{t("منتج", "products")}</span>
+            </div>
+            <div className={styles.stat}>
+              <span className={styles.statNumber}>{categoryCount}</span>
+              <span className={styles.statLabel}>{t("قسم", "categories")}</span>
+            </div>
+            <div className={styles.stat}>
+              <span className={styles.statNumber}>{signatureCount}</span>
+              <span className={styles.statLabel}>{t("توقيع بونساي", "signature items")}</span>
+            </div>
+          </div>
         </div>
       </div>
 

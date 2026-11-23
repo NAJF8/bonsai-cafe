@@ -24,6 +24,7 @@ import { Footer } from "./components/Footer";
 import { GiftModal } from "./components/GiftModal";
 import { BookingModal } from "./components/BookingModal";
 import { MembershipModal } from "./components/MembershipModal";
+import { AssistantWidget } from "./components/AssistantWidget";
 
 export default function App() {
   const { lang, toggleLang, theme, toggleTheme } = useLang();
@@ -87,6 +88,7 @@ export default function App() {
         onOpenCart={() => setCartOpen(true)}
         onOpenGift={() => setGiftOpen(true)}
         onOpenMembership={() => setMembershipOpen(true)}
+        onOpenBooking={() => setBookingOpen(true)}
         brandName={brand.name[lang]}
       />
 
@@ -174,6 +176,7 @@ export default function App() {
       <GiftModal lang={lang} open={giftOpen} onClose={() => setGiftOpen(false)} products={products} brand={brand} />
       <BookingModal lang={lang} open={bookingOpen} onClose={() => setBookingOpen(false)} brand={brand} />
       <MembershipModal lang={lang} open={membershipOpen} onClose={() => setMembershipOpen(false)} />
+      <AssistantWidget lang={lang} products={products} categories={categories} brand={brand} />
     </>
   );
 }

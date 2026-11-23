@@ -10,6 +10,7 @@ interface Props {
   onOpenCart: () => void;
   onOpenGift: () => void;
   onOpenMembership: () => void;
+  onOpenBooking: () => void;
   brandName: string;
 }
 
@@ -22,12 +23,22 @@ export function Header({
   onOpenCart,
   onOpenGift,
   onOpenMembership,
+  onOpenBooking,
   brandName,
 }: Props) {
   const t = (ar: string, en: string) => (lang === "ar" ? ar : en);
 
   return (
     <header className={styles.header}>
+      <nav className={`${styles.textNav} container`} aria-label={t("روابط رئيسية", "Main links")}>
+        <a href="#menu">{t("المنيو", "Menu")}</a>
+        <a href="#reviews">⭐ {t("تقييم الطلب", "Rate order")}</a>
+        <button type="button" onClick={onOpenGift}>🎁 {t("إهداء هدية", "Gift")}</button>
+        <button type="button" onClick={onOpenBooking}>📅 {t("حجز طاولة", "Reserve")}</button>
+        <a href="#events">{t("الفعاليات", "Events")}</a>
+        <button type="button" onClick={onOpenMembership}>🌟 {t("نادي بونساي", "Bonsai Club")}</button>
+        <a href="#about">{t("من نحن", "About")}</a>
+      </nav>
       <div className={`${styles.inner} container`}>
         <a href="#home" className={styles.brand} aria-label={brandName}>
           <img className={styles.mark} src="/assets/brand/logo.jpg" alt="" width={30} height={30} />

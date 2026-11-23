@@ -7,6 +7,36 @@
   border-bottom: 1px solid var(--color-border);
 }
 
+.textNav {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .textNav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+    padding-block: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+  .textNav a,
+  .textNav button {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    min-height: unset;
+    padding: 4px 0;
+    transition: color var(--duration-base) var(--ease-standard);
+  }
+  .textNav a:hover,
+  .textNav button:hover {
+    color: var(--color-primary-strong);
+  }
+}
+
 .inner {
   height: var(--header-height);
   display: flex;

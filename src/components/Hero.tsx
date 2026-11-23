@@ -32,12 +32,6 @@ export function Hero({ lang, brand }: Props) {
             <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </a>
-
-        <div className={styles.meta}>
-          <span>{brand.hours[lang]}</span>
-          <span className={styles.dotSep} aria-hidden="true">&middot;</span>
-          <span>{brand.address[lang]}</span>
-        </div>
       </div>
     </section>
   );

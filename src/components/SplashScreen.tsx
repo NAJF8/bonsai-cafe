@@ -28,10 +28,19 @@ export function SplashScreen({ ready }: { ready: boolean }) {
 
   if (!visible) return null;
 
+  const letters = "BONSAI".split("");
+
   return (
     <div className={`${styles.splash} ${leaving ? styles.leaving : ""}`} role="presentation">
+      <div className={styles.ring} aria-hidden="true" />
       <img className={styles.logo} src="/assets/brand/logo.jpg" alt="" width={84} height={84} />
-      <span className={styles.wordmark}>BONSAI</span>
+      <p className={styles.wordmark} aria-label="BONSAI">
+        {letters.map((ch, i) => (
+          <span key={i} style={{ animationDelay: `${260 + i * 60}ms` }}>
+            {ch}
+          </span>
+        ))}
+      </p>
     </div>
   );
 }
