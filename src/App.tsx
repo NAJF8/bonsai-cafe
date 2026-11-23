@@ -9,7 +9,6 @@ import { SplashScreen } from "./components/SplashScreen";
 import { Header } from "./components/Header";
 import { BottomNav } from "./components/BottomNav";
 import { Hero } from "./components/Hero";
-import { QuickActions } from "./components/QuickActions";
 import { SearchBar } from "./components/SearchBar";
 import { CategoryTabs } from "./components/CategoryTabs";
 import { MenuSection } from "./components/MenuSection";
@@ -94,7 +93,6 @@ export default function App() {
 
       <main>
         <Hero lang={lang} brand={brand} />
-        <QuickActions lang={lang} brand={brand} />
 
         <section id="menu" aria-labelledby="menu-h">
           <div className="container" style={{ paddingTop: "var(--space-4)" }}>

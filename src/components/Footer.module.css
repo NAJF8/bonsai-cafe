@@ -1,8 +1,12 @@
 .footer {
-  background: var(--bonsai-green-900);
-  color: var(--bonsai-cream-200);
-  padding-block: var(--space-10);
+  background: var(--bonsai-cream-200);
+  color: var(--bonsai-ink-900);
+  padding-block: var(--space-8);
   margin-bottom: var(--bottom-nav-height);
+}
+:root[data-theme="dark"] .footer {
+  background: var(--bonsai-green-800);
+  color: var(--bonsai-cream-100);
 }
 
 @media (min-width: 761px) {
@@ -14,31 +18,59 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: var(--space-2);
+  gap: var(--space-5);
+}
+
+@media (min-width: 760px) {
+  .inner {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    text-align: start;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
 }
 
 .logo {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-pill);
+  flex-shrink: 0;
 }
 
 .wordmark {
   font-family: var(--font-display);
-  letter-spacing: 0.24em;
-  font-size: var(--text-lg);
-  color: var(--bonsai-cream-050);
+  letter-spacing: 0.2em;
+  font-size: var(--text-md);
+  color: var(--color-primary-strong);
 }
+:root[data-theme="dark"] .wordmark { color: var(--bonsai-cream-050); }
 
-.tagline { font-size: var(--text-sm); }
+.tagline { font-size: var(--text-xs); color: var(--bonsai-ink-500); margin-top: 2px; }
+:root[data-theme="dark"] .tagline { color: var(--bonsai-cream-200); opacity: 0.8; }
 
 .links {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-4);
-  margin-top: var(--space-3);
   font-size: var(--text-sm);
   font-weight: 600;
 }
-.links a { color: var(--bonsai-terracotta-500); }
 
-.copy { font-size: var(--text-xs); opacity: 0.6; margin-top: var(--space-4); }
+.links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-accent);
+}
+
+.copy {
+  font-size: var(--text-xs);
+  color: var(--bonsai-ink-500);
+}
+:root[data-theme="dark"] .copy { color: var(--bonsai-cream-200); opacity: 0.75; }
