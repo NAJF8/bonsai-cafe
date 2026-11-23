@@ -59,13 +59,10 @@
   aspect-ratio: 4 / 3;
   display: grid;
   place-items: center;
+  color: rgba(255, 255, 255, 0.85);
 }
 
-.initial {
-  font-family: var(--font-display);
-  font-size: 3rem;
-  color: rgba(255, 255, 255, 0.5);
-}
+.image svg { width: 56px; height: 56px; }
 
 .body {
   padding: var(--space-4);

@@ -1,5 +1,6 @@
 import type { Lang, Product } from "../types";
 import { formatIQD } from "../utils/currency";
+import { ProductGlyph, productArtStyle } from "../utils/productArt";
 import styles from "./ProductCard.module.css";
 
 interface Props {
@@ -29,8 +30,8 @@ export function ProductCard({ lang, product, onOpen, onQuickAdd }: Props) {
           onClick={() => onOpen(product)}
           aria-label={t(`عرض تفاصيل ${product.name.ar}`, `View details for ${product.name.en}`)}
         >
-          <span className={styles.image} style={{ background: imageGradient(product.id) }}>
-            <span className={styles.initial} aria-hidden="true">{product.name.en.charAt(0)}</span>
+          <span className={styles.image} style={productArtStyle(product.id)}>
+            <ProductGlyph categoryId={product.categoryId} />
           </span>
         </button>
 
@@ -58,11 +59,4 @@ export function ProductCard({ lang, product, onOpen, onQuickAdd }: Props) {
       </button>
     </article>
   );
-}
-
-function imageGradient(seed: string): string {
-  let hash = 0;
-  for (let i = 0; i < seed.length; i++) hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
-  const hue = hash % 40; // stay within warm green/terracotta range
-  return `linear-gradient(145deg, hsl(${140 - hue} 28% 32%), hsl(${18 + hue} 45% 42%))`;
 }

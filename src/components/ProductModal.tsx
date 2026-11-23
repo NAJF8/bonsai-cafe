@@ -1,6 +1,7 @@
 import { useEffect, useId, useState } from "react";
 import type { Lang, Product } from "../types";
 import { formatIQD } from "../utils/currency";
+import { ProductGlyph, productArtStyle } from "../utils/productArt";
 import styles from "./ProductModal.module.css";
 
 interface Props {
@@ -49,8 +50,8 @@ export function ProductModal({ lang, product, onClose, onAdd }: Props) {
           </svg>
         </button>
 
-        <div className={styles.image} style={{ background: `linear-gradient(145deg, var(--bonsai-green-600), var(--bonsai-terracotta-500))` }}>
-          <span className={styles.initial} aria-hidden="true">{product.name.en.charAt(0)}</span>
+        <div className={styles.image} style={productArtStyle(product.id)}>
+          <ProductGlyph categoryId={product.categoryId} />
         </div>
 
         <div className={styles.body}>
