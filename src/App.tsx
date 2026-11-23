@@ -75,7 +75,7 @@ export default function App() {
 
   return (
     <>
-      <SplashScreen ready={!loading} />
+      <SplashScreen ready={!loading} tagline={brand.tagline[lang]} />
       <a href="#menu" className="skip-link">{t("تخطَّ إلى المنيو", "Skip to menu")}</a>
 
       <Header
