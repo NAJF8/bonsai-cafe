@@ -51,7 +51,11 @@ export function ProductModal({ lang, product, onClose, onAdd }: Props) {
         </button>
 
         <div className={styles.image} style={productArtStyle(product.id)}>
-          <ProductGlyph categoryId={product.categoryId} />
+          {product.image ? (
+            <img className={styles.photo} src={product.image} alt="" />
+          ) : (
+            <ProductGlyph categoryId={product.categoryId} />
+          )}
         </div>
 
         <div className={styles.body}>

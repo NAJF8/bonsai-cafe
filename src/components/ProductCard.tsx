@@ -31,7 +31,11 @@ export function ProductCard({ lang, product, onOpen, onQuickAdd }: Props) {
           aria-label={t(`عرض تفاصيل ${product.name.ar}`, `View details for ${product.name.en}`)}
         >
           <span className={styles.image} style={productArtStyle(product.id)}>
-            <ProductGlyph categoryId={product.categoryId} />
+            {product.image ? (
+              <img className={styles.photo} src={product.image} alt="" loading="lazy" />
+            ) : (
+              <ProductGlyph categoryId={product.categoryId} />
+            )}
           </span>
         </button>
 
