@@ -1,7 +1,7 @@
 import { useEffect, useId, useState } from "react";
 import type { Lang, Product } from "../types";
 import { formatIQD } from "../utils/currency";
-import { ProductGlyph, productArtStyle } from "../utils/productArt";
+import { ProductGlyph } from "../utils/productArt";
 import styles from "./ProductModal.module.css";
 
 interface Props {
@@ -50,7 +50,7 @@ export function ProductModal({ lang, product, onClose, onAdd }: Props) {
           </svg>
         </button>
 
-        <div className={styles.image} style={productArtStyle(product.id)}>
+        <div className={styles.image} style={{ background: "var(--color-pedestal)" }}>
           {product.image ? (
             <img className={styles.photo} src={product.image} alt="" />
           ) : (

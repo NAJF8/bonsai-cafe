@@ -1,0 +1,36 @@
+.capsule {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
+  gap: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--color-pedestal);
+  border: 1px solid var(--color-border);
+}
+
+.btn {
+  width: 30px;
+  height: 30px;
+  min-height: unset;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  display: grid;
+  place-items: center;
+  transition: background var(--duration-base) var(--ease-standard), color var(--duration-base) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+}
+
+.btn:hover {
+  color: var(--color-text);
+}
+
+.active {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.active:hover {
+  color: var(--color-on-primary);
+}

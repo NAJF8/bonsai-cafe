@@ -87,7 +87,7 @@ export function GiftModal({ lang, open, onClose, products, brand }: Props) {
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.sheet} role="dialog" aria-modal="true" aria-label={t("إهداء هدية", "Send a gift")} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
-          <h2>🎁 {t("أهدِ شخصًا تحبه", "Gift someone you love")}</h2>
+          <h2>{t("أهدِ شخصًا تحبه", "Gift someone you love")}</h2>
           <button type="button" className={styles.close} onClick={onClose} aria-label={t("إغلاق", "Close")}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />

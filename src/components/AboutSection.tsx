@@ -1,4 +1,6 @@
+import { useRef } from "react";
 import type { BrandSettings, Lang } from "../types";
+import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import styles from "./AboutSection.module.css";
 
 interface Props {
@@ -12,17 +14,19 @@ interface Props {
 export function AboutSection({ lang, brand, productCount, categoryCount, signatureCount }: Props) {
   const t = (ar: string, en: string) => (lang === "ar" ? ar : en);
   const mapsQuery = encodeURIComponent(brand.address.ar);
+  const rootRef = useRef<HTMLElement>(null);
+  useRevealOnScroll(rootRef);
 
   return (
-    <section id="about" className={`container ${styles.section}`} aria-labelledby="about-h">
+    <section id="about" ref={rootRef} className={`container ${styles.section}`} aria-labelledby="about-h">
       <div className={styles.layout}>
-        <div className={styles.badge}>
+        <div className={styles.badge} data-reveal-io>
           <img className={styles.logo} src="/assets/brand/logo.jpg" alt="" width={120} height={120} />
           <span className={styles.badgeName}>BONSAI</span>
           <span className={styles.badgeTag}>{t("كافيه", "Café")}</span>
         </div>
 
-        <div className={styles.copy}>
+        <div className={styles.copy} data-reveal-io>
           <h2 id="about-h" className={styles.title}>{t("عن بونساي", "About Bonsai")}</h2>
           <p className={styles.text}>
             {t(
@@ -51,7 +55,7 @@ export function AboutSection({ lang, brand, productCount, categoryCount, signatu
         </div>
       </div>
 
-      <div className={styles.grid}>
+      <div className={styles.grid} data-reveal-io>
         <a className={styles.card} href={`https://maps.google.com/?q=${mapsQuery}`} target="_blank" rel="noopener noreferrer">
           <span className={styles.cardLabel}>{t("الموقع", "Location")}</span>
           <span className={styles.cardValue}>{brand.address[lang]}</span>

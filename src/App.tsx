@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import styles from "./App.module.css";
 import type { Product } from "./types";
 import { useLang } from "./hooks/useLang";
@@ -25,8 +25,73 @@ import { BookingModal } from "./components/BookingModal";
 import { MembershipModal } from "./components/MembershipModal";
 import { AssistantWidget } from "./components/AssistantWidget";
 
+const AdminApp = lazy(() => import("./admin/AdminApp"));
+
+function isAdminPath(pathname: string): boolean {
+  return pathname === "/admin" || pathname.startsWith("/admin/");
+}
+
 export default function App() {
-  const { lang, toggleLang, theme, toggleTheme } = useLang();
+  const { lang, toggleLang, themePreference, setThemePreference } = useLang();
+  const [routeIsAdmin, setRouteIsAdmin] = useState(() => isAdminPath(window.location.pathname));
+
+  useEffect(() => {
+    function onPopState() {
+      setRouteIsAdmin(isAdminPath(window.location.pathname));
+    }
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  const navigate = useCallback((path: string) => {
+    if (window.location.pathname !== path) {
+      window.history.pushState({}, "", path);
+    }
+    setRouteIsAdmin(isAdminPath(path));
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
+
+  if (routeIsAdmin) {
+    return (
+      <Suspense
+        fallback={
+          <div style={{ minHeight: "100vh", display: "grid", placeItems: "center", color: "var(--color-text-muted)" }}>
+            {lang === "ar" ? "جاري تحميل لوحة الإدارة..." : "Loading Admin Console..."}
+          </div>
+        }
+      >
+        <AdminApp
+          lang={lang}
+          onToggleLang={toggleLang}
+          themePreference={themePreference}
+          onChangeTheme={setThemePreference}
+          onBackToMenu={() => navigate("/")}
+        />
+      </Suspense>
+    );
+  }
+
+  return (
+    <PublicMenuApp
+      lang={lang}
+      onToggleLang={toggleLang}
+      themePreference={themePreference}
+      onChangeTheme={setThemePreference}
+    />
+  );
+}
+
+function PublicMenuApp({
+  lang,
+  onToggleLang,
+  themePreference,
+  onChangeTheme,
+}: {
+  lang: "ar" | "en";
+  onToggleLang: () => void;
+  themePreference: "system" | "light" | "dark";
+  onChangeTheme: (v: "system" | "light" | "dark") => void;
+}) {
   const { categories, products, brand, events, loading } = useMenuData();
   const cart = useCart();
   const toast = useToast();
@@ -80,9 +145,9 @@ export default function App() {
 
       <Header
         lang={lang}
-        onToggleLang={toggleLang}
-        theme={theme}
-        onToggleTheme={toggleTheme}
+        onToggleLang={onToggleLang}
+        themePreference={themePreference}
+        onChangeTheme={onChangeTheme}
         cartCount={cart.itemCount}
         onOpenCart={() => setCartOpen(true)}
         onOpenGift={() => setGiftOpen(true)}
@@ -92,14 +157,17 @@ export default function App() {
       />
 
       <main>
-        <Hero lang={lang} brand={brand} />
+        <Hero lang={lang} brand={brand} onOpenBooking={() => setBookingOpen(true)} />
 
         <section id="menu" aria-labelledby="menu-h">
-          <div className="container" style={{ paddingTop: "var(--space-4)" }}>
+          <div className="container" style={{ paddingTop: "var(--space-3)" }}>
             <h2 id="menu-h" className="visually-hidden">{t("المنيو", "Menu")}</h2>
             <SearchBar lang={lang} value={searchTerm} onChange={setSearchTerm} />
             <a href="#reviews" className={styles.rateChip}>
-              ⭐ {t("تقييم الطلب", "Rate your order")}
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style={{ color: "var(--color-gold)" }}>
+                <path d="m12 3 2.8 5.8 6.2.9-4.5 4.5 1.1 6.3L12 17.6 6.4 20.5l1.1-6.3L3 9.7l6.2-.9Z" />
+              </svg>
+              {t("تقييم الطلب", "Rate your order")}
             </a>
           </div>
           {!searchTerm && (

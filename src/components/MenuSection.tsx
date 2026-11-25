@@ -1,6 +1,8 @@
+import { useRef } from "react";
 import type { Category, Lang, Product } from "../types";
 import { ProductCard } from "./ProductCard";
 import { EmptyState } from "./EmptyState";
+import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import styles from "./MenuSection.module.css";
 
 interface Props {
@@ -13,6 +15,7 @@ interface Props {
 }
 
 export function MenuSection({ lang, categories, products, searchTerm, onOpenProduct, onQuickAdd }: Props) {
+  const rootRef = useRef<HTMLDivElement>(null);
   const term = searchTerm.trim().toLowerCase();
   const filtered = term
     ? products.filter(
@@ -39,11 +42,13 @@ export function MenuSection({ lang, categories, products, searchTerm, onOpenProd
     .map((c) => ({ category: c, items: filtered.filter((p) => p.categoryId === c.id).sort((a, b) => a.sortOrder - b.sortOrder) }))
     .filter((g) => g.items.length > 0);
 
+  useRevealOnScroll(rootRef, [groups.length, term]);
+
   return (
-    <div className={styles.sections}>
+    <div className={styles.sections} ref={rootRef}>
       {groups.map(({ category, items }) => (
         <section key={category.id} id={`cat-${category.id}`} className="container" aria-labelledby={`cat-${category.id}-h`}>
-          <div className={styles.sectionHead}>
+          <div className={styles.sectionHead} data-reveal-io>
             <h2 id={`cat-${category.id}-h`} className={styles.sectionTitle}>
               {category.name[lang]}
             </h2>
@@ -52,8 +57,10 @@ export function MenuSection({ lang, categories, products, searchTerm, onOpenProd
             </span>
           </div>
           <div className={styles.grid}>
-            {items.map((p) => (
-              <ProductCard key={p.id} lang={lang} product={p} onOpen={onOpenProduct} onQuickAdd={onQuickAdd} />
+            {items.map((p, i) => (
+              <div key={p.id} data-reveal-io style={{ transitionDelay: `${(i % 4) * 60}ms`, height: "100%" }}>
+                <ProductCard lang={lang} product={p} onOpen={onOpenProduct} onQuickAdd={onQuickAdd} />
+              </div>
             ))}
           </div>
         </section>

@@ -44,8 +44,11 @@ export function useMenuData(): MenuData {
       const sortedCategories = remoteCategories?.length
         ? [...remoteCategories].sort((a, b) => a.sortOrder - b.sortOrder)
         : null;
+      const seedImageById = new Map(seedProducts.map((p) => [p.id, p.image]));
       const sortedProducts = remoteProducts?.length
-        ? [...remoteProducts].sort((a, b) => a.sortOrder - b.sortOrder)
+        ? [...remoteProducts]
+            .map((p) => (p.image ? p : { ...p, image: seedImageById.get(p.id) }))
+            .sort((a, b) => a.sortOrder - b.sortOrder)
         : null;
 
       setState((prev) => ({

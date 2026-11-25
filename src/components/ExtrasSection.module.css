@@ -25,6 +25,15 @@
 }
 .card:hover { transform: translateY(-2px); }
 
-.icon { font-size: 1.75rem; }
+.icon {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: var(--color-pedestal);
+  color: var(--color-accent);
+}
 .cardTitle { font-weight: 700; font-size: var(--text-md); color: var(--color-text); }
 .cardText { font-size: var(--text-sm); color: var(--color-text-muted); }

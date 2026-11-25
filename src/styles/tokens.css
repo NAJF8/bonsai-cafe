@@ -1,83 +1,92 @@
 /* ==========================================================================
-   BONSAI CAFE — Design Tokens
-   Source: extracted from @bonsaicafe.iq (logo, photography, watermark type)
-   Palette: deep bonsai-leaf green + warm cream + terracotta berry accent
+   BONSAI CAFÉ — Editorial Design Tokens
+   Source: @bonsaicafe.iq visual identity (warm oat cream, deep pine green,
+   roasted terracotta leaf, espresso ink & brushed saffron gold)
    ========================================================================== */
 
 :root {
-  /* ---- Brand color ramp (extracted) ---- */
-  --bonsai-green-900: #15241b;
-  --bonsai-green-800: #1d3327;
-  --bonsai-green-700: #27452f; /* primary */
-  --bonsai-green-600: #335a3d;
-  --bonsai-green-500: #44724f;
-  --bonsai-green-100: #dde8df;
+  /* ---- Core Brand Palette (@bonsaicafe.iq) ---- */
+  --bonsai-green-950: #0f1d18;
+  --bonsai-green-900: #122a22;
+  --bonsai-green-800: #1a3b31; /* primary brand forest green */
+  --bonsai-green-700: #234b3e;
+  --bonsai-green-600: #2f6050;
+  --bonsai-green-100: #dce7e1;
 
-  --bonsai-terracotta-700: #9a3f28;
-  --bonsai-terracotta-600: #b5522e; /* accent */
-  --bonsai-terracotta-500: #c76a44;
-  --bonsai-terracotta-100: #f3ddd0;
+  --bonsai-terracotta-700: #87381d;
+  --bonsai-terracotta-600: #a34828; /* botanical leaf accent */
+  --bonsai-terracotta-500: #be5d3a;
+  --bonsai-terracotta-100: #f3e0d6;
 
-  --bonsai-cream-050: #fdfbf6;
-  --bonsai-cream-100: #f7efe0; /* logo background */
-  --bonsai-cream-200: #efe3cc;
-  --bonsai-cream-300: #e3d2ac;
+  --bonsai-gold-600: #b27a38;
+  --bonsai-gold-500: #c48a47; /* brushed brass & saffron accent */
+  --bonsai-gold-100: #f4ead7;
 
-  --bonsai-ink-900: #201b14;
-  --bonsai-ink-700: #41392d;
-  --bonsai-ink-500: #6b6257;
-  --bonsai-ink-300: #a99f8f;
+  --bonsai-cream-025: #fbf8f1;
+  --bonsai-cream-050: #f6f0e2;
+  --bonsai-cream-100: #ede4ce; /* authentic logo & menu card oat cream */
+  --bonsai-cream-200: #e2d6bc;
+  --bonsai-cream-300: #d5c6a7;
 
-  --bonsai-success: #3f7a52;
-  --bonsai-warning: #c98a2c;
-  --bonsai-error: #b43a2e;
+  --bonsai-ink-900: #1d1915;
+  --bonsai-ink-700: #3d362d;
+  --bonsai-ink-500: #62584c;
+  --bonsai-ink-300: #9e9382;
 
-  /* ---- Semantic tokens (light) ---- */
-  --color-primary: var(--bonsai-green-700);
-  --color-primary-strong: var(--bonsai-green-800);
-  --color-on-primary: var(--bonsai-cream-050);
+  --bonsai-success: #2f6e49;
+  --bonsai-warning: #b87a24;
+  --bonsai-error: #a63429;
+
+  /* ---- Semantic Tokens (Light — Editorial Warm Oat) ---- */
+  --color-primary: var(--bonsai-green-800);
+  --color-primary-strong: var(--bonsai-green-900);
+  --color-primary-hover: var(--bonsai-green-700);
+  --color-on-primary: var(--bonsai-cream-025);
 
   --color-secondary: var(--bonsai-ink-700);
-  --color-on-secondary: var(--bonsai-cream-050);
+  --color-on-secondary: var(--bonsai-cream-025);
 
   --color-accent: var(--bonsai-terracotta-600);
-  --color-on-accent: var(--bonsai-cream-050);
+  --color-on-accent: var(--bonsai-cream-025);
+  --color-gold: var(--bonsai-gold-500);
 
   --color-background: var(--bonsai-cream-100);
   --color-surface: var(--bonsai-cream-050);
-  --color-surface-raised: #ffffff;
+  --color-surface-raised: var(--bonsai-cream-025);
+  --color-pedestal: #e6dcc6;
 
   --color-text: var(--bonsai-ink-900);
   --color-text-muted: var(--bonsai-ink-500);
   --color-text-on-dark: var(--bonsai-cream-050);
 
-  --color-border: var(--bonsai-cream-300);
-  --color-border-strong: var(--bonsai-ink-300);
+  --color-border: rgba(29, 25, 21, 0.11);
+  --color-border-strong: rgba(29, 25, 21, 0.22);
 
   --color-success: var(--bonsai-success);
   --color-warning: var(--bonsai-warning);
   --color-error: var(--bonsai-error);
 
-  --color-ring: var(--bonsai-green-600);
+  --color-ring: var(--bonsai-green-700);
 
   /* ---- Typography ---- */
-  --font-arabic: "Cairo", "Noto Kufi Arabic", sans-serif;
-  --font-display: "Jost", "Cairo", sans-serif;
+  --font-arabic: "IBM Plex Sans Arabic", sans-serif;
+  --font-english: Arial, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
 
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
-  --text-base: 1rem;
+  --text-base: 0.96875rem;
   --text-md: 1.0625rem;
   --text-lg: 1.25rem;
   --text-xl: 1.5rem;
   --text-2xl: 1.875rem;
-  --text-3xl: 2.25rem;
+  --text-3xl: 2.5rem;
 
-  --leading-tight: 1.2;
-  --leading-normal: 1.5;
-  --leading-relaxed: 1.7;
+  --leading-tight: 1.25;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.75;
 
-  /* ---- Spacing scale ---- */
+  /* ---- Spacing Scale ---- */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -90,48 +99,61 @@
   --space-16: 64px;
   --space-20: 80px;
 
-  /* ---- Radius ---- */
-  --radius-sm: 10px;
-  --radius-md: 16px;
-  --radius-lg: 22px;
+  /* ---- Radius (restrained editorial geometry) ---- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
   --radius-pill: 999px;
 
-  /* ---- Shadow (warm-tinted, never pure black) ---- */
-  --shadow-sm: 0 1px 2px rgba(32, 27, 20, 0.08);
-  --shadow-md: 0 8px 24px -8px rgba(32, 27, 20, 0.18);
-  --shadow-lg: 0 16px 40px -12px rgba(32, 27, 20, 0.28);
-  --shadow-sheet: 0 -8px 32px rgba(32, 27, 20, 0.18);
+  /* ---- Shadows (warm espresso tint) ---- */
+  --shadow-sm: 0 1px 2px rgba(29, 25, 21, 0.06);
+  --shadow-md: 0 10px 28px -10px rgba(29, 25, 21, 0.14);
+  --shadow-lg: 0 20px 44px -14px rgba(29, 25, 21, 0.22);
+  --shadow-sheet: 0 -10px 34px rgba(29, 25, 21, 0.16);
 
   /* ---- Motion ---- */
   --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
-  --duration-fast: 120ms;
-  --duration-base: 200ms;
-  --duration-slow: 320ms;
+  --duration-fast: 140ms;
+  --duration-base: 220ms;
+  --duration-slow: 340ms;
 
   /* ---- Layout ---- */
-  --header-height: 64px;
+  --header-height: 68px;
   --bottom-nav-height: 64px;
-  --max-content-width: 640px;
+  --max-content-width: 720px;
   --touch-target-min: 44px;
 }
 
 :root[data-theme="dark"] {
-  --color-background: var(--bonsai-green-900);
-  --color-surface: var(--bonsai-green-800);
-  --color-surface-raised: #223a2a;
+  --color-primary: #2a594a;
+  --color-primary-strong: #d8cdb6;
+  --color-primary-hover: #356d5b;
+  --color-on-primary: var(--bonsai-cream-025);
 
-  --color-text: var(--bonsai-cream-100);
-  --color-text-muted: #b9c3bb;
-  --color-border: #32483a;
-  --color-border-strong: #44604e;
+  --color-accent: #c7623e;
+  --color-on-accent: var(--bonsai-cream-025);
+  --color-gold: #d29b59;
 
-  --color-on-primary: var(--bonsai-cream-050);
-  --color-ring: var(--bonsai-cream-200);
+  --color-background: var(--bonsai-green-950);
+  --color-surface: #152821;
+  --color-surface-raised: #1c332b;
+  --color-pedestal: #13251f;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
-  --shadow-md: 0 8px 24px -8px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 16px 40px -12px rgba(0, 0, 0, 0.55);
-  --shadow-sheet: 0 -8px 32px rgba(0, 0, 0, 0.45);
+  --color-text: #f3ece0;
+  --color-text-muted: #aeb8b0;
+  --color-border: rgba(237, 228, 206, 0.11);
+  --color-border-strong: rgba(237, 228, 206, 0.22);
+
+  --color-success: #5cc98a;
+  --color-warning: #e5aa4c;
+  --color-error: #f07b6f;
+
+  --color-ring: var(--bonsai-gold-500);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.32);
+  --shadow-md: 0 10px 28px -10px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 20px 44px -14px rgba(0, 0, 0, 0.58);
+  --shadow-sheet: 0 -10px 34px rgba(0, 0, 0, 0.5);
 }
 
 @media (prefers-reduced-motion: reduce) {
