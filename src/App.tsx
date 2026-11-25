@@ -27,8 +27,13 @@ import { AssistantWidget } from "./components/AssistantWidget";
 
 const AdminApp = lazy(() => import("./admin/AdminApp"));
 
+// BASE_URL is "/" on Vercel and "/bonsai-cafe/" on GitHub Pages — strip it
+// before matching so the admin route works under either deployment.
+const BASE_PATH = import.meta.env.BASE_URL.replace(/\/$/, "");
+
 function isAdminPath(pathname: string): boolean {
-  return pathname === "/admin" || pathname.startsWith("/admin/");
+  const relative = pathname.startsWith(BASE_PATH) ? pathname.slice(BASE_PATH.length) : pathname;
+  return relative === "/admin" || relative.startsWith("/admin/");
 }
 
 export default function App() {
@@ -44,10 +49,11 @@ export default function App() {
   }, []);
 
   const navigate = useCallback((path: string) => {
-    if (window.location.pathname !== path) {
-      window.history.pushState({}, "", path);
+    const fullPath = `${BASE_PATH}${path}`;
+    if (window.location.pathname !== fullPath) {
+      window.history.pushState({}, "", fullPath);
     }
-    setRouteIsAdmin(isAdminPath(path));
+    setRouteIsAdmin(isAdminPath(fullPath));
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
 

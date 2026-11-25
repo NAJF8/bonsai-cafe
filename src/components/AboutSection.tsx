@@ -21,7 +21,7 @@ export function AboutSection({ lang, brand, productCount, categoryCount, signatu
     <section id="about" ref={rootRef} className={`container ${styles.section}`} aria-labelledby="about-h">
       <div className={styles.layout}>
         <div className={styles.badge} data-reveal-io>
-          <img className={styles.logo} src="/assets/brand/logo.jpg" alt="" width={120} height={120} />
+          <img className={styles.logo} src="assets/brand/logo.jpg" alt="" width={120} height={120} />
           <span className={styles.badgeName}>BONSAI</span>
           <span className={styles.badgeTag}>{t("كافيه", "Café")}</span>
         </div>

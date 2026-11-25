@@ -77,14 +77,14 @@ export function Hero({ lang, brand, onOpenBooking }: Props) {
               playsInline
               onError={() => setVideoFailed(true)}
             >
-              <source src="/assets/brand/hero.mp4" type="video/mp4" />
-              <source src="/assets/brand/hero.webm" type="video/webm" />
+              <source src="assets/brand/hero.mp4" type="video/mp4" />
+              <source src="assets/brand/hero.webm" type="video/webm" />
             </video>
           )}
           {videoFailed && !imageFailed && (
             <img
               className={styles.mediaEl}
-              src="/assets/brand/hero.jpg"
+              src="assets/brand/hero.jpg"
               alt=""
               onError={() => setImageFailed(true)}
             />
@@ -125,7 +125,7 @@ export function Hero({ lang, brand, onOpenBooking }: Props) {
           <div className={styles.emblemRing} data-reveal>
             <img
               className={styles.logo}
-              src="/assets/brand/logo.jpg"
+              src="assets/brand/logo.jpg"
               alt={brand.name[lang]}
               width={86}
               height={86}

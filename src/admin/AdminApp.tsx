@@ -468,7 +468,7 @@ export default function AdminApp({
 
       <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ""}`}>
         <div className={styles.sideBrand}>
-          <img className={styles.sideLogo} src="/assets/brand/logo.jpg" alt="Bonsai Café" width={40} height={40} />
+          <img className={styles.sideLogo} src="assets/brand/logo.jpg" alt="Bonsai Café" width={40} height={40} />
           <div>
             <span className={styles.sideWordmark}>BONSAI</span>
             <span className={styles.sideSub}>{t("لوحة الإدارة", "Admin Console")}</span>
@@ -1359,7 +1359,7 @@ function ProductEditorModal({
   const [descEn, setDescEn] = useState(initial?.description?.en ?? "");
   const [categoryId, setCategoryId] = useState(initial?.categoryId ?? categories[0]?.id ?? "hot-drinks");
   const [price, setPrice] = useState(String(initial?.price ?? 5000));
-  const [image, setImage] = useState(initial?.image ?? "/assets/products/classic-latte.png");
+  const [image, setImage] = useState(initial?.image ?? "assets/products/classic-latte.png");
   const [tag, setTag] = useState<string>(initial?.tags?.[0] ?? "");
   const [available, setAvailable] = useState(initial?.available ?? true);
   const [sortOrder, setSortOrder] = useState(String(initial?.sortOrder ?? nextOrder));

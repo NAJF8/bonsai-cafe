@@ -108,7 +108,7 @@ export function AdminLogin({
       <main className={styles.center}>
         <section className={styles.card} aria-labelledby="admin-login-title">
           <div className={styles.brandHead}>
-            <img className={styles.logo} src="/assets/brand/logo.jpg" alt="Bonsai Café" width={64} height={64} />
+            <img className={styles.logo} src="assets/brand/logo.jpg" alt="Bonsai Café" width={64} height={64} />
             <span className={styles.wordmark}>BONSAI</span>
             <h1 id="admin-login-title" className={styles.title}>
               {t("لوحة إدارة بونساي كافيه", "Bonsai Café Admin")}

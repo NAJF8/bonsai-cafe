@@ -16,7 +16,7 @@ export function Footer({ lang, brand }: Props) {
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
         <div className={styles.brand}>
-          <img className={styles.logo} src="/assets/brand/logo.jpg" alt="" width={42} height={42} />
+          <img className={styles.logo} src="assets/brand/logo.jpg" alt="" width={42} height={42} />
           <div>
             <span className={styles.wordmark}>BONSAI</span>
             <p className={styles.tagline}>{brand.tagline[lang]}</p>

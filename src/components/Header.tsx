@@ -35,7 +35,7 @@ export function Header({
     <header className={styles.header}>
       <div className={`${styles.inner} container`}>
         <a href="#home" className={styles.brand} aria-label={brandName}>
-          <img className={styles.mark} src="/assets/brand/logo.jpg" alt="" width={36} height={36} />
+          <img className={styles.mark} src="assets/brand/logo.jpg" alt="" width={36} height={36} />
           <div className={styles.brandText}>
             <span className={styles.wordmark}>BONSAI</span>
             <span className={styles.submark}>{t("بونساي كافيه", "CAFÉ · NAJAF")}</span>

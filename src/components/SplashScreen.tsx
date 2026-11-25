@@ -9,12 +9,12 @@ function SplashMedia() {
     <div className={styles.media} aria-hidden="true">
       {!videoFailed && (
         <video className={styles.mediaEl} autoPlay muted loop playsInline onError={() => setVideoFailed(true)}>
-          <source src="/assets/brand/splash.mp4" type="video/mp4" />
-          <source src="/assets/brand/splash.webm" type="video/webm" />
+          <source src="assets/brand/splash.mp4" type="video/mp4" />
+          <source src="assets/brand/splash.webm" type="video/webm" />
         </video>
       )}
       {videoFailed && !imageFailed && (
-        <img className={styles.mediaEl} src="/assets/brand/splash.jpg" alt="" onError={() => setImageFailed(true)} />
+        <img className={styles.mediaEl} src="assets/brand/splash.jpg" alt="" onError={() => setImageFailed(true)} />
       )}
       <div className={styles.mediaScrim} />
     </div>
@@ -57,7 +57,7 @@ export function SplashScreen({ ready, tagline }: { ready: boolean; tagline: stri
         <span className={styles.ring} />
         <span className={styles.ring} />
       </div>
-      <img className={styles.logo} src="/assets/brand/logo.jpg" alt="" width={84} height={84} />
+      <img className={styles.logo} src="assets/brand/logo.jpg" alt="" width={84} height={84} />
       <p className={styles.wordmark} aria-label="BONSAI">
         {letters.map((ch, i) => (
           <span key={i} style={{ animationDelay: `${300 + i * 65}ms` }}>
