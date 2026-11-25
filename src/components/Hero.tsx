@@ -65,7 +65,7 @@ export function Hero({ lang, brand, onOpenBooking }: Props) {
   }, []);
 
   return (
-    <section id="home" ref={sectionRef} className={styles.hero} aria-label={t("الصفحة الرئيسية", "Home")}>
+    <section id="home" ref={sectionRef} className={styles.hero} data-media={hasMedia || undefined} aria-label={t("الصفحة الرئيسية", "Home")}>
       <div className={styles.mediaLayer} aria-hidden="true" data-has-media={hasMedia || undefined}>
         <div ref={mediaWrapRef} className={styles.mediaWrap}>
           {!videoFailed && (
